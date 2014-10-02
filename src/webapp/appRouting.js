@@ -4,7 +4,10 @@ hopscotch.config(function($routeProvider, $locationProvider) {
             templateUrl: 'templates/list-bottles.html',
             controller: 'BottleListController',
             resolve: {
-                whiskey: function() {
+                bottles: function(ResourceFactory) {
+                    var BottleService = new ResourceFactory('/bottles');
+
+                    return BottleService.find();
                 }
             }
         })

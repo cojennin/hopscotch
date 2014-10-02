@@ -16,6 +16,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr ng-repeat="bottle in bottles track by $index">
+                        <td>{{bottle.name}}</td>
+                        <td>{{bottle.distillery}}</td>
+                        <td>{{bottle.year}}</td>
+                        <td>{{bottle.acquired}}</td>
+                        <td>{{bottle.num_bottles}}</td>
+                        <td>{{bottle.comments}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

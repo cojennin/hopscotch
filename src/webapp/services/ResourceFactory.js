@@ -1,5 +1,5 @@
 //$resource does too much too wrongly
-hopscotch.factory('ResourceFactory', ['$http', 'PATH', function(http, PATH) {
+hopscotch.factory('ResourceFactory', ['$http', 'PATH', function($http, PATH) {
     return function(route) {
         route = PATH.apiPath + route;
 
@@ -17,7 +17,7 @@ hopscotch.factory('ResourceFactory', ['$http', 'PATH', function(http, PATH) {
             if (typeof obj !== 'undefined') {
                 config.params = obj;
             }
-            return $http.query(route, config);
+            return $http.get(route, config);
         }
     }
 }]);

@@ -5,7 +5,8 @@
   (:require [ring.util.response :refer :all]
             [ring.middleware.json :as json]
             [ring.util.response :only [response]])
-  (:require [hopscotch.database.db :as db]))
+  (:require [hopscotch.database.db :as db])
+  (:require [ring.middleware.cors :refer [wrap-cors]]))
 
 (defn get-bottle [id] (response "Implement"))
 
@@ -28,13 +29,12 @@
   (POST "/distilleries", [], (save-distillery))
   (route/not-found "Not Found"))
 
-
-
 (def app
   (->
   (handler/site app-routes)
   (json/wrap-json-body)
-  (json/wrap-json-response)))
+  (json/wrap-json-response)
+  (wrap-cors :access-control-allow-origin #"http://localhost:8080" :access-control-allow-methods [:get :put :post :delete])))
 
 (def init
   (db/open!))
