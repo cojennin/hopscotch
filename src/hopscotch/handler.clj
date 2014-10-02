@@ -16,17 +16,17 @@
 
 (defn get-distillery [] (response "Implement"))
 
-(defn find-distilleries [] (response (db/query-bottles)))
+(defn find-distilleries [] (response (db/query-distilleries)))
 
-(defn save-distillery [] (response "Implement"))
+(defn save-distillery [distillery] (response (db/save-distillery! distillery)))
 
 (defroutes app-routes
-  (GET "/bottle/:id" [id] (get-bottle id))
+  (GET "/bottles/:id" [id] (get-bottle id))
   (GET "/bottles" [] (find-bottles))
   (POST "/bottles" {body :body} (save-bottle body))
-  (GET "/distillery/:id" [id], (get-distillery id))
-  (GET "/distilleries", [], (find-distilleries))
-  (POST "/distilleries", [], (save-distillery))
+  (GET "/distilleries/:id" [id] (get-distillery id))
+  (GET "/distilleries" [] (find-distilleries))
+  (POST "/distilleries" {body :body} (save-distillery body))
   (route/not-found "Not Found"))
 
 (def app

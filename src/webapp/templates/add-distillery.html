@@ -8,17 +8,17 @@
                 <div class="form-group">
                     <label for="distilleryName">Name</label>
                     <span class="label label-danger">Required</span>
-                    <input type="text" placeholder="Enter name" id="distilleryName" class="form-control" />
+                    <input type="text" ng-model="distllery.name" placeholder="Enter name" id="distilleryName" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label for="distilleryYearFounded">Year Founded</label>
-                    <input type="text" placeholder="Enter year founded" id="distilleryYearFounded" class="form-control" />
+                    <input type="text" ng-model="distillery.year_founded" placeholder="Enter year founded" id="distilleryYearFounded" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label for="distilleryLocation">Location</label>
-                    <input type="text" placeholder="Enter location" id="distilleryLocation" class="form-control" />
+                    <input type="text" ng-model="distillery.location" placeholder="Enter location" id="distilleryLocation" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-lg btn-primary pull-right" ng-disabled="addDistillery.$invalid">Submit</button>
             </form>
         </div>
     </div>
