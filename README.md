@@ -1,27 +1,19 @@
-# Hopscotch
+# hopscotch
 
-Hopscotch is a lightweight, pip-installable app that tracks alcohol drinking and collecting for the aficionado.
+FIXME
 
-## Apps
+## Prerequisites
 
-### Dram
-An app that stores drink information
+You will need [Leiningen][1] 1.7.0 or above installed.
 
-## Requirements
+[1]: https://github.com/technomancy/leiningen
 
-### Python
+## Running
 
-All pip installable, included in .requirements.txt
+To start a web server for the application, run:
 
-### OS
+    lein ring server
 
-mongo >= 2.0
-python >= 2.6
+## License
 
-### Web
-
-twitter-bootstrap  [http://twitter.github.com/bootstrap/]
-jquery [http://jquery.com]
-
-#### version 
-0.0.1 pre-alpha
+Copyright © 2014 FIXME

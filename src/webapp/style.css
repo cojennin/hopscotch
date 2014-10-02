@@ -1,0 +1,54 @@
+#hopscotch-header {
+    background-color: #333;
+}
+
+#hopscotch-header h1 {
+    color: #eee;
+    font-size: 42px;
+    font-weight: lighter;
+    letter-spacing: 6px;
+}
+
+h3 {
+    color: #999;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    font-size: 26px;
+    padding: 10px 0 10px 0;
+}
+
+.label {
+    border-radius: 0;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+#hopscotch-header ul.nav {
+    margin-top: 24px;
+    font-weight: 200;
+    letter-spacing: 1px;
+}
+
+.nav-pills.white > li > a {
+    color: white;
+}
+
+.nav-pills.white > li > a:hover {
+    background-color: white;
+    color: #333;
+}
+
+.nav-pills.white > li.active > a:hover {
+    background-color: #428bca;
+    color: white;
+}
+
+.nav-pills > li > a.square {
+    border-radius: 0;
+}
+
+table.table > thead > tr > td {
+    color: #333;
+}
