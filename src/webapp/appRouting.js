@@ -13,7 +13,14 @@ hopscotch.config(function($routeProvider, $locationProvider) {
         })
         .when('/add-bottle', {
             templateUrl: 'templates/add-bottle.html',
-            controller: 'BottleAddController'
+            controller: 'BottleAddController',
+            resolve: {
+                distilleries: function(ResourceFactory) {
+                    var DistilleryService = new ResourceFactory('/distilleries');
+
+                    return DistilleryService.find();
+                }
+            }
         })
         .when('/distilleries', {
             templateUrl: 'templates/list-distilleries.html',

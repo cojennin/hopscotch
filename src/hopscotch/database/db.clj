@@ -25,6 +25,7 @@
   (alter-var-root (var *db*) (constantly db)))
 
 (def Bottles "Bottles")
+(def Bottles "Distilleries")
 
 (defn update-collection! [coll id update]
   (collection/update *db* coll {:_id id} update {:upsert true}))
@@ -38,7 +39,6 @@
     (monger.conversion/to-object-id s)
     (catch Exception e nil)))
 
-
 (defn save-bottle! [bottle]
   (result/ok? (update-collection! Bottles {:_id (ObjectId.)} bottle)))
 
@@ -47,6 +47,9 @@
 
 (defn query-bottles []
   (find-collection Bottles))
+
+(defn query-distilleries []
+  (find-collection Distilleries))
 
 (defn open! []
   (do

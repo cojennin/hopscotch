@@ -16,7 +16,7 @@
 
 (defn get-distillery [] (response "Implement"))
 
-(defn find-distilleries [] (response "Implement"))
+(defn find-distilleries [] (response (db/query-bottles)))
 
 (defn save-distillery [] (response "Implement"))
 

@@ -8,30 +8,32 @@
                 <div class="form-group">
                     <label for="distilleryBottle">Name</label>
                     <span class="label label-danger">Required</span>
-                    <input type="text" placeholder="Enter name" id="distilleryBottle" class="form-control" />
+                    <input type="text" ng-model="bottle.name" placeholder="Enter name" id="distilleryBottle" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label for="bottleYear">Year</label>
-                    <input type="text" placeholder="Enter year of bottle" id="bottleYear" class="form-control" />
+                    <input type="text" ng-model="bottle.year" placeholder="Enter year of bottle" id="bottleYear" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label for="bottleDistillery">Distillery</label>
-                    <input type="text" placeholder="Enter date purchased" id="bottleDistillery" class="form-control" />
+                    <select ng-model="bottle.distillery" ng-options="distillery.name for distillery in distilleries" id="bottleDistillery" class="form-control">
+                        <option value="" disabled="disabled">-- Pick a distillery --</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="bottleProof">Proof</label>
-                    <input type="number" placeholder="Enter number" id="bottleProof" class="form-control" />
+                    <input type="number" ng-model="bottle.proof" placeholder="Enter number" id="bottleProof" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label for="bottleDatePurchased">Date Purchased</label>
-                    <input type="text" placeholder="Enter date purchased" id="bottleDatePurchased" class="form-control" />
+                    <input type="text" ng-model="bottle.date_purchased" placeholder="Enter date purchased" id="bottleDatePurchased" class="form-control" />
                     <p class="help-block">Format: yyyy-mm-dd</p>
                 </div>
                 <div class="form-group">
                     <label for="bottleNum">Number of bottles</label>
-                    <input type="number" placeholder="Enter number of bottles" id="bottleNum" class="form-control" />
+                    <input type="number" ng-model="bottle.num_bottles" placeholder="Enter number of bottles" id="bottleNum" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="addBottle.$invalid">Submit</button>
             </form>
         </div>
     </div>
