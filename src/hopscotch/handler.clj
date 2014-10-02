@@ -9,7 +9,7 @@
 
 (defn get-bottle [id] (response "Implement"))
 
-(defn find-bottles [] (response "Implement"))
+(defn find-bottles [] (response (db/query-bottles)))
 
 (defn save-bottle [bottle] (response (db/save-bottle! bottle)))
 
@@ -33,7 +33,8 @@
 (def app
   (->
   (handler/site app-routes)
-  (json/wrap-json-body)))
+  (json/wrap-json-body)
+  (json/wrap-json-response)))
 
 (def init
   (db/open!))

@@ -8,7 +8,8 @@
              [monger.result :as result]
              [monger.core :as mongo]
              [monger.collection :as collection]
-             [monger.query :as q]))
+             [monger.query :as q]
+             [monger.conversion :refer [from-db-object]]))
 
 (def mongo-creds
   {:host     (or (env :mongo-host) "127.0.0.1")
@@ -28,6 +29,9 @@
 (defn update-collection! [coll id update]
   (collection/update *db* coll {:_id id} update {:upsert true}))
 
+(defn find-collection [coll]
+  (collection/find-maps *db* coll))
+
 (defn to-object-id [s]
   "An extension of Monger's to-object-id. Handles nils or non-objectId strings and returns nil."
   (try
@@ -40,6 +44,9 @@
 
 (defn update-bottle! [id bottle]
   (result/ok? (update-collection! Bottles (to-object-id id) {$set (dissoc bottle :_id)})))
+
+(defn query-bottles []
+  (find-collection Bottles))
 
 (defn open! []
   (do
