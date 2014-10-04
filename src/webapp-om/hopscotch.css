@@ -32,6 +32,7 @@ h1 {
 .search h3 {
     color: #ccc;
     font-size: 1.5em;
+    line-height: 1.4em;
 }
 
 .search p.byline {

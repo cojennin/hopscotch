@@ -16,7 +16,7 @@
       (dom/p {:class "text-right byline" } (str "- Mark Twain"))
         (dom/form
           (i/input {:type "text" :placeholder "Find a whiskey"})
-          (dom/p (b/button {:bs-style "primary" :bs-size "large" :class "pull-right"} "Submit"))))))
+          (dom/p (b/button {:bs-style "primary" :bs-size "large" :class "pull-right"} "Find"))))))
 
 (defcomponent header [data owner]
   (render [_]
