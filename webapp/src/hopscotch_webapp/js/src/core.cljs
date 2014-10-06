@@ -1,4 +1,4 @@
-(ns hopscotch.core
+(ns hopscotch-webapp.core
   (:require
     [om.core :as om :include-macros true]
     [om-tools.core :refer-macros [defcomponent]]
@@ -15,7 +15,7 @@
       (dom/h3 {:class "text-center"} (str "\"Too much of anything is bad, but too much of good whiskey is barely enough.\""))
       (dom/p {:class "text-right byline" } (str "- Mark Twain"))
         (dom/form
-          (i/input {:type "text" :placeholder "Find a whiskey"})
+          (i/input {:type "text" :placeholder "Find a spirit"})
           (dom/p (b/button {:bs-style "primary" :bs-size "large" :class "pull-right"} "Find"))))))
 
 (defcomponent header [data owner]

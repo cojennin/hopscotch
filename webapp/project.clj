@@ -12,9 +12,9 @@
 :plugins [[lein-cljsbuild "1.0.3"]]
 :cljsbuild {
              :builds [{:id "dev"
-                       :source-paths ["src/js/src"]
+                       :source-paths ["src/hopscotch_webapp/js/src"]
                        :compiler {
-                                   :output-to "src/js/build/main.js"
-                                   :output-dir "src/js/build"
+                                   :output-to "src/hopscotch_webapp/js/build/main.js"
+                                   :output-dir "src/hopscotch_webapp/js/build"
                                    :optimizations :none
                                    :source-map true}}]})

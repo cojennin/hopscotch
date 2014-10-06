@@ -7,7 +7,3 @@ pom.xml.asc
 *.class
 /.lein-*
 /.nrepl-port
-.idea
-.DS_STORE
-build
-config.json

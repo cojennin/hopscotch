@@ -1,11 +1,11 @@
-(ns hopscotch.handler
+(ns hopscotch-api.handler
   (:require [compojure.core :refer :all]
             [compojure.handler :as handler]
             [compojure.route :as route])
   (:require [ring.util.response :refer :all]
             [ring.middleware.json :as json]
             [ring.util.response :only [response]])
-  (:require [hopscotch.database.db :as db])
+  (:require [hopscotch-api.database.db :as db])
   (:require [ring.middleware.cors :refer [wrap-cors]]))
 
 (defn get-bottle [id] (response "Implement"))

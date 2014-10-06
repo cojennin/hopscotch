@@ -1,4 +1,4 @@
-(ns hopscotch.database.db
+(ns hopscotch-api.database.db
   (:import  [org.bson.types ObjectId])
   (:require [environ.core :refer :all])
   (:require  monger.joda-time
