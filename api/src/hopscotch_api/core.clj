@@ -1,4 +1,4 @@
-(ns hopscotch-api.handler
+(ns hopscotch-api.core
   (:require [compojure.core :refer :all]
             [compojure.handler :as handler]
             [compojure.route :as route])
