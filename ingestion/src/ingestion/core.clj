@@ -1,6 +1,7 @@
 (ns ingestion.core
   (:gen-class)
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str])
   (:require [ingestion.config :as config]
             [ingestion.database.db :as db])
   (:require [clj-http.client :as client])
@@ -13,14 +14,26 @@
 (defn parse-json [data]
   (parse-string data true))
 
+(defn get-spreadsheet-entry-value-from-dsl [dsl entry]
+  (do
+    (let [props (str/split dsl #"\.")]
+      (loop [list-key props
+             map-val entry]
+        (if (= (count props) 1)
+          ((keyword (first props)) map-val)
+          (do
+            (recur (next props) ((keyword (first props)) entry))))))))
+
 (defn map-props-from-spreadsheet [properties data]
   (loop [finished-map {}
          props properties]
-    (if (empty? props)
-      finished-map
-      (if (map? (val (first props)))
-        (recur (assoc finished-map (key (first props)) (val (first props))) (val (first props)))
-        (recur (assoc finished-map (key (first props)) ((keyword (val (first props))) data)) (next keys))))))
+    (let [prop-key (key (first props))
+          prop-val (val (first props))]
+         (if (empty? props)
+           finished-map
+           (if (map? prop-val)
+             (recur (assoc finished-map prop-key prop-val) prop-val)
+             (recur (assoc finished-map prop-key (get-spreadsheet-entry-value-from-dsl prop-val data)) (next props)))))))
 
 ; Takes a goole spreadsheet as json
 (defn process-google-spreadsheet [spreadsheet mapping]
