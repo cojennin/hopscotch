@@ -1,5 +1,6 @@
-(ns whiskey-river.database.db
+(ns ingestion.database.db
   (:import  [org.bson.types ObjectId])
+  (:require [clojure.pprint :as p])
   (:require  [monger.joda-time]
              [monger.json]
              [monger.operators :refer :all]
@@ -28,3 +29,6 @@
   (try
     (monger.conversion/to-object-id s)
     (catch Exception e nil)))
+
+(defn save-batch [coll docs]
+  (p/pprint docs))

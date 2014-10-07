@@ -10,4 +10,4 @@ pom.xml.asc
 .idea
 .DS_STORE
 build
-config.json
+config.edn
