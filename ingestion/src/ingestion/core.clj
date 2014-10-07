@@ -11,14 +11,14 @@
     (:body (client/get endpoint))))
 
 (defn parse-json [data]
-  (parse-string data))
+  (parse-string data true))
 
 (defn map-props-from-spreadsheet [props data]
   (loop [finished-map {}
          keys props]
     (if (empty? keys)
       finished-map
-      (recur (assoc finished-map (data (keyword (first keys)))) (next keys)))))
+      (recur (assoc finished-map (first props) ((keyword (first keys)) data)) (next keys)))))
 
 ; Takes a goole spreadsheet as json
 (defn process-google-spreadsheet [spreadsheet mapping]
@@ -29,7 +29,7 @@
         mapped-entries
         (let [[is-mapping & to-map] remaining-entries
               mapped-entries (conj mapped-entries (map-props-from-spreadsheet mapping is-mapping))]
-          (recur remaining-entries mapped-entries))))))
+          (recur to-map mapped-entries))))))
 
 (defn -main
   "I don't do a whole lot ... yet."
