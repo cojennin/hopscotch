@@ -13,12 +13,14 @@
 (defn parse-json [data]
   (parse-string data true))
 
-(defn map-props-from-spreadsheet [props data]
+(defn map-props-from-spreadsheet [properties data]
   (loop [finished-map {}
-         keys props]
-    (if (empty? keys)
+         props properties]
+    (if (empty? props)
       finished-map
-      (recur (assoc finished-map (first props) ((keyword (first keys)) data)) (next keys)))))
+      (if (map? (val (first props)))
+        (recur (assoc finished-map (key (first props)) (val (first props))) (val (first props)))
+        (recur (assoc finished-map (key (first props)) ((keyword (val (first props))) data)) (next keys))))))
 
 ; Takes a goole spreadsheet as json
 (defn process-google-spreadsheet [spreadsheet mapping]
