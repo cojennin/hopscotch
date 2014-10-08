@@ -14,27 +14,6 @@
 (defn parse-json [data]
   (parse-string data true))
 
-;(defn get-spreadsheet-entry-value-from-dsl [dsl entry]
-;  (do
-;    (let [props (str/split dsl #"\.")]
-;      (loop [list-key props
-;             map-val entry]
-;        (if (nil? props)
-;          ((keyword (first props)) map-val)
-;          (do
-;            (recur (next props) ((keyword (first props)) entry))))))))
-;
-;(defn map-props-from-spreadsheet [properties data]
-;  (loop [finished-map {}
-;         props properties]
-;    (let [prop-key (key (first props))
-;          prop-val (val (first props))]
-;         (if (empty? props)
-;           finished-map
-;           (if (map? prop-val)
-;               (recur (assoc finished-map prop-key (recur {} prop-val)) (next props))
-;               (recur (assoc finished-map prop-key (get-spreadsheet-entry-value-from-dsl prop-val data)) (next props)))))))
-
 (defn get-data-from-dsl [dsl data]
   (let [props (str/split dsl #"\.")]
     (loop [[prop & rest-of-props] props
@@ -53,7 +32,9 @@
                 val (first (vals properties))]
             (if (empty? properties)
               finished-mapping
-              (recur (next properties) (assoc finished-mapping key (get-data-from-dsl val object-to-extract-values-from)))))))))
+              (if (map? val)
+                (recur (next properties) (assoc finished-mapping key ((map-to-data val) object-to-extract-values-from)))
+                (recur (next properties) (assoc finished-mapping key (get-data-from-dsl val object-to-extract-values-from))))))))))
 
 ; Takes a goole spreadsheet as json
 (defn process-google-spreadsheet [spreadsheet mapping]
