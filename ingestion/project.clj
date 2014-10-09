@@ -6,8 +6,10 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [clj-http "1.0.0"]
                  [cheshire "5.3.1"]
-                 [com.novemberain/monger "2.0.0"]
-                 [clojure.joda-time "0.2.0"]]
+                 [clojure.joda-time "0.2.0"]
+                 [org.clojure/java.jdbc "0.3.5"]
+                 [honeysql "0.4.3"]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]]
   :main ^:skip-aot ingestion.core
   :target-path "target/%s"
   :resource-paths ["resources"]

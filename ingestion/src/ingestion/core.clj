@@ -37,22 +37,37 @@
                 (recur (next properties) (assoc finished-mapping key (get-data-from-dsl val object-to-extract-values-from))))))))))
 
 ; Takes a goole spreadsheet as json
-(defn process-google-spreadsheet [spreadsheet mapping]
+(defn process-google-spreadsheet [spreadsheet resource]
   (let [objs (:entry (:feed (parse-json spreadsheet)))]
-    (map (map-to-data mapping) objs)))
+    {:name (:name resource)
+     :objects (map (map-to-data mapping) objs)}))
+
+; This should identify what the resouce is and call the correct
+; processing function.
+(defn process-resource [resource]
+  (process-google-spreadsheet
+    (simple-get (:location resource))))
+
+(defn save-distilleries [data]
+  (let [distilleries (filter (fn [distillery?]
+                       (= (:name distillery?) "distillery")))]
+    ))
+
+(defn save-spirits! [data]
+  (let [spirits (filter (fn [spirit?]
+                          (= (:name spirit?) "spirit")))]
+    ))
+
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
   (let [config (config/parse-config-file (io/resource "config.clj"))
         all-resources (:resources config)]
-    (db/open! (:mongo config))
-    (loop [resources (:resources config)]
-      (if (empty? resources)
-        (print "Done")
-        (let [[resource & whats-left] resources]
-          (db/save-batch (:name resource)
-            (process-google-spreadsheet
-              (simple-get (:location resource) {})
-                (:mapping resource)))
-          (recur whats-left))))))
+    (do
+      (db/open! (:db config))
+      (db/create-initial-schema!)
+      (let [processed-resources (map process-resource (:resources config))]
+        (-> processed-resources
+          save-distilleries!
+          save-spirits!)))))
