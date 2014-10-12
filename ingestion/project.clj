@@ -8,7 +8,7 @@
                  [cheshire "5.3.1"]
                  [clojure.joda-time "0.2.0"]
                  [org.clojure/java.jdbc "0.3.5"]
-                 [honeysql "0.4.3"]
+                 [sqlingvo "0.6.5"]
                  [org.postgresql/postgresql "9.2-1002-jdbc4"]]
   :main ^:skip-aot ingestion.core
   :target-path "target/%s"
