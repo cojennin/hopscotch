@@ -11,5 +11,5 @@
   (let [config (config/parse-config-file (io/resource "config.clj"))
         all-resources (:resources config)]
         (do
-          (db/open! (:db config))
-          (adi/process-adi-resources! (:adi-resources (:resources config))))))
+          (db/open! (:db config)) ; setup the database
+          (adi/process-adi-resources! (:adi-resources (:resources config)))))) ; Process information from the ADI

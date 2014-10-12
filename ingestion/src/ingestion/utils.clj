@@ -40,12 +40,6 @@
     {:name (:name resource)
      :objects (mapv (map-to-data (:mapping resource)) objs)}))
 
-; This should identify what the resouce is and call the correct
-; processing function.
-(defn process-resource [resource]
-  (process-google-spreadsheet
-    (simple-get (:location resource)) resource))
-
 (defn filter-by-keyword-value [aKeyword value data]
   (do
     (filter (fn [item]
