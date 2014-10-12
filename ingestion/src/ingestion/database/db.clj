@@ -1,7 +1,5 @@
 (ns ingestion.database.db
-  (:require [clojure.java.jdbc :as postgres])
-  (:require [sqlingvo.core])
-  (:refer-clojure :exclude [distinct group-by replace]))
+  (:require [clojure.java.jdbc :as postgres]))
 
 (declare ^:dynamic *db*)
 
@@ -17,20 +15,15 @@
                          (or (:user conn) "")
                          (or (:password conn) "")})))
 
-(defn create-table! [name & rest] ; destructure rest so it can be passed to create-table-ddl
+(defn execute! [query]
   (try
-    (postgres/db-do-commands *db* (sql (create-table name rest)))
+    (postgres/execute! *db* query)
     (catch Exception e (.printStackTrace (.getNextException e)))))
 
-(defn debug-table [name & rest]
-  (println (sql (create-table name rest))))
+(defn query [query]
+  (try
+    (postgres/query *db* query)
+    (catch Exception e (.printStackTrace (.getNextException e)))))
 
-
-(defn insert-object! [table object]
-  (postgres/insert! *db* table object))
-
-(defn insert-objects! [table objects]
-  (loop [[object & left] objects]
-    (do
-      (insert-object! table object)
-      (recur left ))))
+(defn debug-execute! [query]
+  (println query))

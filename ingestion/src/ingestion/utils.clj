@@ -2,9 +2,10 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as str])
   (:require [ingestion.database.db :as db])
-  (:require [clj-http.client :as client]))
+  (:require [clj-http.client :as client])
+  (:require [cheshire.core :refer :all]))
 
-(defn simple-get [endpoint opts]
+(defn simple-get [endpoint & opts]
   (let [options (merge {:follow-redirects true, :insecure? true, :query-params {}} opts)]
     (:body (client/get endpoint))))
 
@@ -37,14 +38,15 @@
 (defn process-google-spreadsheet [spreadsheet resource]
   (let [objs (:entry (:feed (parse-json spreadsheet)))]
     {:name (:name resource)
-     :objects (map (map-to-data (:mapping resource)) objs)}))
+     :objects (mapv (map-to-data (:mapping resource)) objs)}))
 
 ; This should identify what the resouce is and call the correct
 ; processing function.
 (defn process-resource [resource]
   (process-google-spreadsheet
-    (simple-get (:location resource))))
+    (simple-get (:location resource)) resource))
 
-(defn filter-by-name [aKeyword value data]
-  (filter (fn [item]
-            (= ((keyword aKeyword) data) value)) data))
+(defn filter-by-keyword-value [aKeyword value data]
+  (do
+    (filter (fn [item]
+              (= ((keyword aKeyword) item) value)) data)))

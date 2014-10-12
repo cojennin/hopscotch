@@ -3,15 +3,12 @@
   (:require [ingestion.database.adi :as db]))
 
 (defn swap-distillery-info-for-id [spirit]
-  (assoc spirit :distillery (:id (db/find-distillery (:distillery spirit)))))
+  (let [distilleries (db/find-distillery (:distillery spirit))]
+    (assoc spirit :distillery (:id (first distilleries)))))
 
-; Map over spirits and swap out their distillery objects for distillery id
-(defn save-spirits! [spirits]
-  (db/save-spirits! (map swap-distillery-info-for-id spirits spirits)))
-
-(defn process-adi-resources [adi-resources]
-  (let [processed-adi-resources (map utils/process-resource adi-resources)]
+(defn process-adi-resources! [adi-resources]
+  (let [processed-adi-resources (mapv utils/process-resource adi-resources)]
     (do
       (db/create-adi-schema!)
-      (db/save-distilleries! (filter-by-keyword-value :name "distilleries"))
-      (save-spirits! (filter-by-keyword-value :name "spirits")))))
+      (db/save-adi-distilleries! (distinct (:objects (first (utils/filter-by-keyword-value :name "adi-distilleries" processed-adi-resources)))))
+      (db/save-adi-spirits! (mapv swap-distillery-info-for-id (:objects (first (utils/filter-by-keyword-value :name "adi-spirits" processed-adi-resources))))))))

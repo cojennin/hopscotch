@@ -1,7 +1,9 @@
 (ns ingestion.core
   (:gen-class)
+  (:require [clojure.java.io :as io])
   (:require [ingestion.config :as config]
-            [ingestion.processors.adi]))
+            [ingestion.processors.adi :as adi]
+            [ingestion.database.db :as db]))
 
 (defn -main
   "I don't do a whole lot ... yet."
@@ -10,4 +12,4 @@
         all-resources (:resources config)]
         (do
           (db/open! (:db config))
-          (adi/process-adi-resources (:adi-resources (:resources config))))))
+          (adi/process-adi-resources! (:adi-resources (:resources config))))))
