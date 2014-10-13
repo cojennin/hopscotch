@@ -6,10 +6,12 @@
 
 ; needs foreign key constraint
 (defn create-bottles-table! []
-  (db/create-table! Bottles
+  (db/execute!
+    (sql
+      (create-table bottles
         (if-not-exists true)
         (column :id :serial :primary-key? true)
         (column :spirit :int)
         (column :bottling-year :int)
-        (column :size :int)))
+        (column :size :int)))))
 
