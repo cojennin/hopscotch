@@ -1,5 +1,5 @@
 {
-  :db { :host "127.0.0.1", :db "hopscotch", :user "postgres" },
+  :db { :host "127.0.0.1", :db "ingestion", :user "postgres" },
   :resources {
                :adi-resources [
                                 {
